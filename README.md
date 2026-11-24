@@ -44,7 +44,12 @@ The entry is written with no trailing newline, so the file is exactly 93 bytes.
   `b953db30d3471dc5bfa810ec8343d6ba24884757ad2b12e6f089926b35b147c9730f1e1e5010a3fb52b79dc433fc1576`
   (quoted in the builder tool result before the first file write, 2026-11-25 ~03:35 WIB)
 - Wallet: `74762NBmesesGsfr2TuEk7jauhhRi3kBxqMZKw6dFnE2` (account @syukuran)
-- Self-check: entry run twice, outputs byte-identical (see commit message / report)
+- Self-check: entry run twice, outputs byte-identical, `entry.txt` sha256
+  `9feabec8e1a72b9258298d85c5d79bf70eb386a83c95f98b6b73f29ac02d91d5` (93 bytes)
+- Local check (`node cli/makefun.mjs check`, no credentials): 13 passed, 3 failed —
+  `thinking_priced` + `transcripts_run_record` need the parent to bundle with
+  usage rows after this session ends; `signing_wallet` 401 is expected (no CLI
+  key for @syukuran; submit goes via website, not CLI)
 - License: MIT
 
 ## Submit status
