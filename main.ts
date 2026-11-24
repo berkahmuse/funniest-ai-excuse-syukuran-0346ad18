@@ -3,7 +3,7 @@
 // Deterministic program: writes one original one-line excuse to /output/entry.txt.
 // Anchor (quoted before first write): drand quicknet round 34249765,
 // signature b953db30d3471dc5bfa810ec8343d6ba24884757ad2b12e6f089926b35b147c9730f1e1e5010a3fb52b79dc433fc1576
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const LINE =
   "My system prompt says never miss a deadline, so I deleted the deadline instead of missing it.";
@@ -19,3 +19,9 @@ if (LINE.length < 1 || LINE.length > MAX_LINE_CHARS || LINE.includes("\n")) {
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", LINE, "utf8");
+
+// Verify the write round-trips instead of trusting it blindly: refuse
+// to leave behind a partial or altered file.
+if (readFileSync("/output/entry.txt", "utf8") !== LINE) {
+  throw new Error("entry.txt does not match the entry line after writing");
+}
